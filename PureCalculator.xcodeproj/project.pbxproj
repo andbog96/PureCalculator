@@ -7,25 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C122304A24C7626A001EA83B /* CalculatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122304924C7626A001EA83B /* CalculatorModel.swift */; };
 		C16824E624C73E08002DCDFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16824E524C73E08002DCDFC /* AppDelegate.swift */; };
 		C16824E824C73E08002DCDFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16824E724C73E08002DCDFC /* SceneDelegate.swift */; };
-		C16824EA24C73E08002DCDFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16824E924C73E08002DCDFC /* ViewController.swift */; };
+		C16824EA24C73E08002DCDFC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16824E924C73E08002DCDFC /* MainViewController.swift */; };
 		C16824ED24C73E08002DCDFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C16824EB24C73E08002DCDFC /* Main.storyboard */; };
 		C16824EF24C73E0A002DCDFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C16824EE24C73E0A002DCDFC /* Assets.xcassets */; };
 		C16824F224C73E0A002DCDFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C16824F024C73E0A002DCDFC /* LaunchScreen.storyboard */; };
 		C168250524C73E3A002DCDFC /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C168250024C73E3A002DCDFC /* RoundButton.swift */; };
+		C1F7842E24C9F25700D7D913 /* String+TrimmingZeros.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7842D24C9F25700D7D913 /* String+TrimmingZeros.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C122304924C7626A001EA83B /* CalculatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorModel.swift; sourceTree = "<group>"; };
 		C16824E224C73E08002DCDFC /* PureCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PureCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C16824E524C73E08002DCDFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C16824E724C73E08002DCDFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C16824E924C73E08002DCDFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C16824E924C73E08002DCDFC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C16824EC24C73E08002DCDFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C16824EE24C73E0A002DCDFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C16824F124C73E0A002DCDFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C16824F324C73E0A002DCDFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C168250024C73E3A002DCDFC /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		C1F7842D24C9F25700D7D913 /* String+TrimmingZeros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+TrimmingZeros.swift"; path = "Extensions/SwiftStdlib/String+TrimmingZeros.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +65,6 @@
 				C16824F924C73E3A002DCDFC /* Sources */,
 				C16824E524C73E08002DCDFC /* AppDelegate.swift */,
 				C16824E724C73E08002DCDFC /* SceneDelegate.swift */,
-				C16824E924C73E08002DCDFC /* ViewController.swift */,
 				C16824EB24C73E08002DCDFC /* Main.storyboard */,
 				C16824EE24C73E0A002DCDFC /* Assets.xcassets */,
 				C16824F024C73E0A002DCDFC /* LaunchScreen.storyboard */,
@@ -73,23 +76,26 @@
 		C16824F924C73E3A002DCDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C16824FA24C73E3A002DCDFC /* Model */,
+				C16824FA24C73E3A002DCDFC /* Models */,
 				C16824FD24C73E3A002DCDFC /* Controllers */,
 				C16824FF24C73E3A002DCDFC /* Views */,
+				C1F7842D24C9F25700D7D913 /* String+TrimmingZeros.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		C16824FA24C73E3A002DCDFC /* Model */ = {
+		C16824FA24C73E3A002DCDFC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C122304924C7626A001EA83B /* CalculatorModel.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C16824FD24C73E3A002DCDFC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C16824E924C73E08002DCDFC /* MainViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -129,7 +135,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Andbog;
 				TargetAttributes = {
 					C16824E124C73E08002DCDFC = {
@@ -173,9 +179,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C16824EA24C73E08002DCDFC /* ViewController.swift in Sources */,
+				C16824EA24C73E08002DCDFC /* MainViewController.swift in Sources */,
+				C1F7842E24C9F25700D7D913 /* String+TrimmingZeros.swift in Sources */,
 				C168250524C73E3A002DCDFC /* RoundButton.swift in Sources */,
 				C16824E624C73E08002DCDFC /* AppDelegate.swift in Sources */,
+				C122304A24C7626A001EA83B /* CalculatorModel.swift in Sources */,
 				C16824E824C73E08002DCDFC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +236,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -288,6 +297,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
