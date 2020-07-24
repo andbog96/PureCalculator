@@ -10,6 +10,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    typealias ButtonType = CalculatorModel.ButtonType
+    
     @IBOutlet weak var firstLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
     @IBOutlet weak var operationLabel: UILabel!
@@ -21,9 +23,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        secondLabel.text = ""
-        operationLabel.text = ""
-        firstLabel.text = "0"
+        updateView()
     }
     
     @IBAction func onButtonTouchUpInside(_ sender: UIButton) {
@@ -31,51 +31,40 @@ class MainViewController: UIViewController {
             fatalError("firstLabel.text is nil")
         }
         
-        if let buttonString = sender.titleLabel?.text {
-            if Double(buttonString) != nil {
-                if calculator.isFinite {
-                    if firstLabelText == "0" {
-                        firstLabel.text = buttonString
-                    } else if firstLabelText.count <= 20 {
-                        firstLabel.text! += buttonString
+        if let button = ButtonType(sender.titleLabel?.text ?? "") {
+            if case let ButtonType.symbol(symbol) = button, calculator.isFinite {
+                if symbol == CalculatorModel.point {
+                    if !firstLabelText.contains(CalculatorModel.point.first!) {
+                        firstLabel.text?.append(CalculatorModel.point)
                     }
-                }
-                return
-            } else if buttonString == "." {
-                if calculator.isFinite && firstLabel.text?.firstIndex(of: ".") == nil {
-                    firstLabel.text?.append(".")
-                }
-                return
-            } else  {
-                calculator.setNumber(firstLabel.text!)
-                
-                if buttonString == "=" {
-                    calculator.calculate()
                 } else {
-                    switch buttonString {
-                    case "C":
-                        calculator.cancel()
-                    default:
-                        calculator.setOperation(buttonString)
+                    if firstLabelText == "0" {
+                        firstLabel.text = symbol
+                    } else if firstLabelText.count <= 20 {
+                        firstLabel.text! += symbol
                     }
                 }
+            } else  {
+                calculator.setNumber(firstLabelText)
+                
+                switch button {
+                case .calculate:
+                    calculator.calculate()
+                case .cancel:
+                    calculator.cancel()
+                default:
+                    calculator.setOperation(button)
+                }
+                
+                updateView()
             }
         }
-        
-        updateView()
     }
     
     private func updateView() {
-        firstLabel.text = String(calculator.firstNumber).trimZeros().detailedDescription()
-        operationLabel.text = calculator.operation?.rawValue ?? ""
-        
-        if let secondNumber = calculator.secondNumber {
-            secondLabel.text = String(secondNumber).trimZeros().detailedDescription()
-        } else {
-            secondLabel.text = ""
-        }
-        
-        
+        firstLabel.text = String(calculated: calculator.firstNumber)
+        operationLabel.text = calculator.operation?.toString()
+        secondLabel.text = String(calculated: calculator.secondNumber) ?? ""
     }
 }
 

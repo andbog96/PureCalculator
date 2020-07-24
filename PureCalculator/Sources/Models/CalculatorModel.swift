@@ -10,14 +10,43 @@ import Foundation
 
 struct CalculatorModel {
     
-    enum Operation: String, CaseIterable {
+    public static let point = "."
+    
+    enum ButtonType: Equatable {
+        case add
+        case subtract
+        case multiply
+        case divide
+        case percent
+        case negate
+        case cancel
+        case symbol(String)
+        case calculate
         
-        case add = "+"
-        case subtract = "–"
-        case multiply = "×"
-        case divide = "÷"
-        case percent = "%"
-        case negate = "±"
+        private static let map: [String: ButtonType] = [
+            "+": .add,
+            "–": .subtract,
+            "×": .multiply,
+            "÷": .divide,
+            "%": .percent,
+            "±": .negate,
+            "C": .cancel,
+            "=": .calculate,
+        ]
+        
+        init?(_ string: String) {
+            if let t = CalculatorModel.ButtonType.map[string] {
+                self = t
+            } else if string == point || Double(string) != nil {
+                self = .symbol(string)
+            } else {
+                return nil
+            }
+        }
+        
+        public func toString() -> String {
+            CalculatorModel.ButtonType.map.first { $1 == self }?.key ?? ""
+        }
         
         public var isUnary: Bool {
             switch self {
@@ -32,7 +61,7 @@ struct CalculatorModel {
     
     private(set) var firstNumber: Double = 0
     private(set) var secondNumber: Double? = nil
-    private(set) var operation: Operation? = nil
+    private(set) var operation: ButtonType? = nil
     
     // False if number is inf, =inf or nan
     private(set) var isFinite = true
@@ -44,7 +73,7 @@ struct CalculatorModel {
             return
         }
         
-        let t = (number.last == ".")
+        let t = (number.last == CalculatorModel.point.last)
             ? Double(number.dropLast())
             : Double(number)
         
@@ -55,12 +84,9 @@ struct CalculatorModel {
         self.firstNumber = firstNumber
     }
     
-    public mutating func setOperation(_ operationName: String) {
+    public mutating func setOperation(_ operation: ButtonType) {
         guard isFinite else {
             return
-        }
-        guard let operation = Operation(rawValue: operationName) else {
-            fatalError("Wrong operation string!")
         }
         
         if operation.isUnary {
@@ -119,6 +145,8 @@ struct CalculatorModel {
                 return percent(of: firstNumber)
             case .negate:
                 return negate(firstNumber)
+            default:
+                fatalError("Missing operation!")
             }
         }()
         
