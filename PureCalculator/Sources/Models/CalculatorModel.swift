@@ -8,62 +8,13 @@
 
 import Foundation
 
-struct CalculatorModel {
-    
-    public static let point = "."
-    
-    enum ButtonType: Equatable {
-        case add
-        case subtract
-        case multiply
-        case divide
-        case percent
-        case negate
-        case cancel
-        case symbol(String)
-        case calculate
-        
-        private static let map: [String: ButtonType] = [
-            "+": .add,
-            "–": .subtract,
-            "×": .multiply,
-            "÷": .divide,
-            "%": .percent,
-            "±": .negate,
-            "C": .cancel,
-            "=": .calculate,
-        ]
-        
-        init?(_ string: String) {
-            if let t = CalculatorModel.ButtonType.map[string] {
-                self = t
-            } else if string == point || Double(string) != nil {
-                self = .symbol(string)
-            } else {
-                return nil
-            }
-        }
-        
-        public func toString() -> String {
-            CalculatorModel.ButtonType.map.first { $1 == self }?.key ?? ""
-        }
-        
-        public var isUnary: Bool {
-            switch self {
-            case .percent,
-                 .negate:
-                return true
-            default:
-                return false
-            }
-        }
-    }
+struct CalculatorModel: CalculatorModelProtocol {
     
     private(set) var firstNumber: Double = 0
     private(set) var secondNumber: Double? = nil
-    private(set) var operation: ButtonType? = nil
+    private(set) var operation: ButtonModel? = nil
     
-    // False if number is inf, =inf or nan
+    // False if number is inf, -inf or nan
     private(set) var isFinite = true
     
     // MARK: - Methods
@@ -73,7 +24,7 @@ struct CalculatorModel {
             return
         }
         
-        let t = (number.last == CalculatorModel.point.last)
+        let t = (number.last == ButtonModel.point.rawValue.last)
             ? Double(number.dropLast())
             : Double(number)
         
@@ -84,7 +35,7 @@ struct CalculatorModel {
         self.firstNumber = firstNumber
     }
     
-    public mutating func setOperation(_ operation: ButtonType) {
+    public mutating func setOperation(_ operation: ButtonModel) {
         guard isFinite else {
             return
         }
@@ -95,12 +46,10 @@ struct CalculatorModel {
             calculate()
             self.operation = t
         } else {
-            if secondNumber != nil {
-                calculate()
+            if secondNumber == nil {
+                secondNumber = firstNumber
+                firstNumber = 0
             }
-            
-            secondNumber = firstNumber
-            firstNumber = 0
             
             self.operation = operation
         }
@@ -150,10 +99,9 @@ struct CalculatorModel {
             }
         }()
         
-        firstNumber = result
-        if !firstNumber.isFinite {
-            isFinite = false
-        }
+        firstNumber = result.isZero ? 0 : result // avoidance of -0
+        isFinite = firstNumber.isFinite
+        
         self.operation = nil
         if !operation.isUnary {
             self.secondNumber = nil

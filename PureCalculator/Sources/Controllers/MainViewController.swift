@@ -10,13 +10,11 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    typealias ButtonType = CalculatorModel.ButtonType
-    
     @IBOutlet weak var firstLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
     @IBOutlet weak var operationLabel: UILabel!
     
-    private var calculator = CalculatorModel()
+    private var calculator: CalculatorModelProtocol = CalculatorModel()
     
     // MARK: - Methods
     
@@ -31,20 +29,20 @@ class MainViewController: UIViewController {
             fatalError("firstLabel.text is nil")
         }
         
-        if let button = ButtonType(sender.titleLabel?.text ?? "") {
-            if case let ButtonType.symbol(symbol) = button, calculator.isFinite {
-                if symbol == CalculatorModel.point {
-                    if !firstLabelText.contains(CalculatorModel.point.first!) {
-                        firstLabel.text?.append(CalculatorModel.point)
+        if let button = ButtonModel(rawValue: sender.titleLabel?.text ?? "") {
+            if button.isSymbol && calculator.isFinite {
+                if button == .point {
+                    if !firstLabelText.contains(button.rawValue) {
+                        firstLabel.text?.append(button.rawValue)
                     }
-                } else {
+                } else { // button is digit
                     if firstLabelText == "0" {
-                        firstLabel.text = symbol
+                        firstLabel.text = button.rawValue
                     } else if firstLabelText.count <= 20 {
-                        firstLabel.text! += symbol
+                        firstLabel.text! += button.rawValue
                     }
                 }
-            } else  {
+            } else {
                 calculator.setNumber(firstLabelText)
                 
                 switch button {
@@ -62,9 +60,9 @@ class MainViewController: UIViewController {
     }
     
     private func updateView() {
-        firstLabel.text = String(calculated: calculator.firstNumber)
-        operationLabel.text = calculator.operation?.toString()
-        secondLabel.text = String(calculated: calculator.secondNumber) ?? ""
+        firstLabel.text = String(from: calculator.firstNumber)
+        operationLabel.text = calculator.operation?.rawValue ?? ""
+        secondLabel.text = String(from: calculator.secondNumber) ?? ""
     }
 }
 
