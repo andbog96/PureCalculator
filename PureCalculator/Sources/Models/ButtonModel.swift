@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ButtonModel: String {
+enum ButtonModel: String, CaseIterable {
     
     case cancel = "C"
     case calculate = "="
