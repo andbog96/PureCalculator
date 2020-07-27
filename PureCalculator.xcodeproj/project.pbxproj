@@ -99,8 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				C16824F924C73E3A002DCDFC /* Sources */,
-				C16824E524C73E08002DCDFC /* AppDelegate.swift */,
-				C16824E724C73E08002DCDFC /* SceneDelegate.swift */,
 				C16824EB24C73E08002DCDFC /* Main.storyboard */,
 				C16824EE24C73E0A002DCDFC /* Assets.xcassets */,
 				C16824F024C73E0A002DCDFC /* LaunchScreen.storyboard */,
@@ -112,6 +110,8 @@
 		C16824F924C73E3A002DCDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C16824E724C73E08002DCDFC /* SceneDelegate.swift */,
+				C16824E524C73E08002DCDFC /* AppDelegate.swift */,
 				C1F7843024CB0DE900D7D913 /* Extensions */,
 				C16824FA24C73E3A002DCDFC /* Models */,
 				C16824FD24C73E3A002DCDFC /* Controllers */,
